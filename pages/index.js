@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useQuery } from "urql";
+import Product from "../components/Product";
 import { PRODUCT_QUERY } from "../lib/query";
 
 export default function Home() {
@@ -10,7 +11,8 @@ export default function Home() {
 
 	if (fetching) return <p>loading</p>;
 	if (error) return <p>error</p>;
-	console.log({ data });
+	const products = data.products.data;
+	console.log({ products });
 	return (
 		<div>
 			{/* Head component allows adding metadata */}
@@ -20,7 +22,12 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main>Home</main>
+			<main>
+				Products
+				{products.map((product) => (
+					<Product key={product.attributes.slug} product={product} />
+				))}
+			</main>
 		</div>
 	);
 }
