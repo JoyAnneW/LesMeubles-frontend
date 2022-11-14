@@ -17,7 +17,7 @@ export default function Product({ product }) {
 	return (
 		<Card>
 			<CardBody>
-				<Image src={mdImg} borderRadius="lg" />
+				<Image src={mdImg} cursor="pointer" borderRadius="lg" />
 				<Stack mt="6">
 					<Heading size="md">{name}</Heading>
 					<Text>{description}</Text>
