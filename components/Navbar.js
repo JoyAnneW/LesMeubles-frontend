@@ -1,8 +1,28 @@
-import { Button, ButtonGroup, Flex, Heading, Icon } from "@chakra-ui/react";
+import { useRef } from "react";
+import {
+	Button,
+	ButtonGroup,
+	Drawer,
+	DrawerBody,
+	DrawerFooter,
+	DrawerHeader,
+	DrawerOverlay,
+	DrawerContent,
+	DrawerCloseButton,
+	Flex,
+	Heading,
+	Icon,
+	useDisclosure,
+} from "@chakra-ui/react";
+
 import { FiShoppingBag } from "react-icons/fi";
 import Link from "next/link";
+import Cart from "./Cart";
 
 export default function Navbar() {
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const btnRef = useRef();
+
 	return (
 		<Flex
 			position="fixed"
@@ -25,10 +45,31 @@ export default function Navbar() {
 				<Button variant="solid" colorScheme="orange">
 					Login
 				</Button>
-				<Button variant="ghost" colorScheme="orange">
+				<Button
+					variant="ghost"
+					colorScheme="orange"
+					ref={btnRef}
+					onClick={onOpen}
+				>
 					<Icon as={FiShoppingBag} fontSize="3xl" />
 				</Button>
 			</ButtonGroup>
+			<Drawer
+				isOpen={isOpen}
+				placement="right"
+				onClose={onClose}
+				finalFocusRef={btnRef}
+			>
+				<DrawerOverlay />
+				<DrawerContent>
+					<DrawerCloseButton />
+					<DrawerHeader>Your Shopping Cart</DrawerHeader>
+					<DrawerBody>
+						{" "}
+						<Cart />
+					</DrawerBody>
+				</DrawerContent>
+			</Drawer>
 		</Flex>
 	);
 }
