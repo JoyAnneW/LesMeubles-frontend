@@ -15,7 +15,7 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 
-import { FiShoppingBag } from "react-icons/fi";
+import { FiShoppingCart } from "react-icons/fi";
 import Link from "next/link";
 import Cart from "./Cart";
 
@@ -51,7 +51,7 @@ export default function Navbar() {
 					ref={btnRef}
 					onClick={onOpen}
 				>
-					<Icon as={FiShoppingBag} fontSize="3xl" />
+					<Icon as={FiShoppingCart} fontSize="3xl" />
 				</Button>
 			</ButtonGroup>
 			<Drawer
@@ -59,13 +59,15 @@ export default function Navbar() {
 				placement="right"
 				onClose={onClose}
 				finalFocusRef={btnRef}
+				size="md"
 			>
 				<DrawerOverlay />
 				<DrawerContent>
 					<DrawerCloseButton />
-					<DrawerHeader>Your Shopping Cart</DrawerHeader>
+					<DrawerHeader textAlign="center" color="orange.900">
+						Your Shopping Cart
+					</DrawerHeader>
 					<DrawerBody>
-						{" "}
 						<Cart />
 					</DrawerBody>
 				</DrawerContent>

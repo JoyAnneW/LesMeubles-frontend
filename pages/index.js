@@ -36,7 +36,7 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<Box mt="28">
+			<Box my="28" mx={6}>
 				<SimpleGrid minChildWidth="20rem" spacing="2rem">
 					{products.map((product) => (
 						<Product key={product.attributes.slug} product={product} />
