@@ -7,20 +7,18 @@ import {
 	Center,
 	Heading,
 	Spinner,
-	StackDivider,
 	Text,
 	Image,
 	Input,
 	HStack,
-	VStack,
 	useNumberInput,
 	Flex,
-	Divider,
+	ButtonSpinner,
 } from "@chakra-ui/react";
 import { useShopContext } from "../../lib/context";
 
 export default function ProductDetails() {
-	const { qty, setQty } = useShopContext();
+	const { qty, setQty, addToCart } = useShopContext();
 	const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
 		useNumberInput({
 			step: 1,
@@ -28,7 +26,7 @@ export default function ProductDetails() {
 			min: 1,
 			value: qty,
 			onChange: (valueStr) => {
-				console.log({ valueStr });
+				// console.log({ valueStr });
 				setQty(valueStr);
 			},
 		});
@@ -59,10 +57,10 @@ export default function ProductDetails() {
 			</Center>
 		);
 	}
-	if (error) return <p>error</p>;
+	if (error) return <p>{error.message}</p>;
 	// console.log({ query, results, data });
-
-	const { name, description, image, price } = data.products.data[0].attributes;
+	const product = data.products.data[0].attributes;
+	const { name, description, image, price } = product;
 	const mdImg = image.data.attributes.formats.medium.url;
 
 	return (
@@ -75,13 +73,19 @@ export default function ProductDetails() {
 					<Heading>{name}</Heading>
 					<Text fontSize="2xl">€{price}</Text>
 					<Text>{description}</Text>
-
-					<HStack maxW="320px" mt={24}>
+					<HStack maxW="320px" mt={16}>
 						<Text>Quantity</Text>
 						<Button {...inc}>+</Button>
 						<Input {...input} />
 						<Button {...dec}>-</Button>
 					</HStack>
+					<Button
+						variant="solid"
+						mt={2}
+						onClick={() => addToCart(product, qty)}
+					>
+						Add To Cart
+					</Button>
 				</Flex>
 			</Flex>
 		</Center>
