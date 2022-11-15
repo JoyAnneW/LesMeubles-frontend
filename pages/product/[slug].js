@@ -59,7 +59,7 @@ export default function ProductDetails() {
 	const mdImg = image.data.attributes.formats.medium.url;
 
 	return (
-		<Center>
+		<Center mt="20">
 			<Flex gap={4} mt={6}>
 				<Box boxSize="sm">
 					<Image src={mdImg} cursor="pointer" borderRadius="lg" />
