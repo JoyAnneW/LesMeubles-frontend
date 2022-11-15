@@ -17,13 +17,20 @@ import {
 	Flex,
 	Divider,
 } from "@chakra-ui/react";
+import { useShopContext } from "../../lib/context";
 
 export default function ProductDetails() {
+	const { qty, setQty } = useShopContext();
 	const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
 		useNumberInput({
 			step: 1,
-			defaultValue: 0,
-			min: 0,
+			defaultValue: 1,
+			min: 1,
+			value: qty,
+			onChange: (valueStr) => {
+				console.log({ valueStr });
+				setQty(valueStr);
+			},
 		});
 
 	const inc = getIncrementButtonProps();
