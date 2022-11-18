@@ -19,12 +19,12 @@ export default function Cart() {
 		setCartItems,
 		increaseQuantityOfCartItem,
 		decreaseQuantityOfCartItem,
+
+		handleDecrement,
 	} = useShopContext();
-	const { qty, setQty } = useShopContext();
 	const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
 		useNumberInput({
 			step: 1,
-			min: 0,
 		});
 	const inc = getIncrementButtonProps();
 	const dec = getDecrementButtonProps();
@@ -38,12 +38,12 @@ export default function Cart() {
 		setCartItems(updatedCartItems);
 	};
 
-	const decrementQuantity = (prod) => {
-		console.log({ prod });
-		const updatedCartItems = decreaseQuantityOfCartItem(prod);
-		console.log({ updatedCartItems });
-		setCartItems(updatedCartItems);
-	};
+	// const decrementQuantity = (prod) => {
+	// 	console.log({ prod });
+	// 	const updatedCartItems = decreaseQuantityOfCartItem(prod);
+	// 	console.log({ updatedCartItems });
+	// 	setCartItems(updatedCartItems);
+	// };
 
 	return (
 		<Box h="75vh">
@@ -69,7 +69,7 @@ export default function Cart() {
 											+
 										</Button>
 										<Input {...input} value={item.quantity} />
-										<Button {...dec} onClick={() => decrementQuantity(item)}>
+										<Button {...dec} onClick={() => handleDecrement(item)}>
 											-
 										</Button>
 									</HStack>
