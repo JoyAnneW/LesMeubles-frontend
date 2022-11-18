@@ -26,7 +26,6 @@ export default function Cart() {
 		});
 	const inc = getIncrementButtonProps();
 	const dec = getDecrementButtonProps();
-
 	const input = getInputProps();
 
 	const incrementQuantity = (prod) => {

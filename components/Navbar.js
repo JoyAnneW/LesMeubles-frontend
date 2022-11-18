@@ -13,16 +13,24 @@ import {
 	Heading,
 	Icon,
 	useDisclosure,
+	Box,
+	Center,
 } from "@chakra-ui/react";
 
 import { FiShoppingCart } from "react-icons/fi";
 import Link from "next/link";
 import Cart from "./Cart";
+import { useShopContext } from "../lib/context";
 
 export default function Navbar() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef = useRef();
+	const { cartItems } = useShopContext();
 
+	const totalQuantitiesInCart = cartItems.reduce(
+		(acc, item) => acc + Number(item.quantity),
+		0
+	);
 	return (
 		<Flex
 			position="fixed"
@@ -51,7 +59,25 @@ export default function Navbar() {
 					ref={btnRef}
 					onClick={onOpen}
 				>
-					<Icon as={FiShoppingCart} fontSize="3xl" />
+					<Flex direction="column" position="relative">
+						{cartItems.length > 0 && (
+							<Center
+								fontWeight="semibold"
+								position="absolute"
+								top={-4}
+								left={2}
+								height={5}
+								width={5}
+								backgroundColor="orange.500"
+								borderRadius="full"
+								color="orange.50"
+								fontSize="sm"
+							>
+								{totalQuantitiesInCart}
+							</Center>
+						)}
+						<Icon as={FiShoppingCart} fontSize="3xl" />
+					</Flex>
 				</Button>
 			</ButtonGroup>
 			<Drawer
