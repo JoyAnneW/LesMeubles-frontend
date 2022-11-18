@@ -18,8 +18,6 @@ export default function Cart() {
 		cartItems,
 		setCartItems,
 		increaseQuantityOfCartItem,
-		decreaseQuantityOfCartItem,
-
 		handleDecrement,
 	} = useShopContext();
 	const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
@@ -38,29 +36,23 @@ export default function Cart() {
 		setCartItems(updatedCartItems);
 	};
 
-	// const decrementQuantity = (prod) => {
-	// 	console.log({ prod });
-	// 	const updatedCartItems = decreaseQuantityOfCartItem(prod);
-	// 	console.log({ updatedCartItems });
-	// 	setCartItems(updatedCartItems);
-	// };
-
 	return (
 		<Box h="75vh">
 			{cartItems.length ? (
 				<Flex direction="column" gap={6}>
 					{cartItems.map((item) => {
-						const thumbnail = item.image.data.attributes.formats.thumbnail.url;
+						const { image, name, price, slug } = item.attributes;
+						const thumbnail = image.data.attributes.formats.thumbnail.url;
 
 						return (
-							<Flex gap={4} key={item.slug}>
+							<Flex gap={4} key={slug}>
 								<Image src={thumbnail} borderRadius="lg" />
 
 								<Box>
 									<Text fontSize="xl" fontWeight="bold">
-										{item.name}
+										{name}
 									</Text>
-									<Text fontSize="xl">€{item.price}</Text>{" "}
+									<Text fontSize="xl">€{price}</Text>{" "}
 									<Text fontSize="xl" mt="5">
 										Quantity: {item.quantity}
 									</Text>

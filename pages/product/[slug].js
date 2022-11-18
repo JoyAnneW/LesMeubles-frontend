@@ -59,8 +59,8 @@ export default function ProductDetails() {
 	}
 	if (error) return <p>{error.message}</p>;
 	// console.log({ query, results, data });
-	const product = data.products.data[0].attributes;
-	const { name, description, image, price } = product;
+	const product = data.products.data[0];
+	const { name, description, image, price } = product.attributes;
 	const mdImg = image.data.attributes.formats.medium.url;
 
 	return (

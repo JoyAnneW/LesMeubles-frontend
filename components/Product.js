@@ -11,8 +11,11 @@ import {
 	Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { useContext } from "react";
+import { useShopContext } from "../lib/context";
 
 export default function Product({ product }) {
+	const { addToCart } = useShopContext();
 	const { image, name, price, description, slug } = product.attributes;
 	const mdImg = image.data.attributes.formats.medium.url;
 	return (
@@ -33,7 +36,11 @@ export default function Product({ product }) {
 					<Button variant="solid" colorScheme="orange">
 						Buy now
 					</Button>
-					<Button variant="ghost" colorScheme="orange">
+					<Button
+						variant="ghost"
+						colorScheme="orange"
+						onClick={() => addToCart(product)}
+					>
 						Add to cart
 					</Button>
 				</ButtonGroup>
