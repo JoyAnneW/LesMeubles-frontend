@@ -52,9 +52,6 @@ export default function Cart() {
 										{name}
 									</Text>
 									<Text fontSize="xl">€{price}</Text>{" "}
-									<Text fontSize="xl" mt="5">
-										Quantity: {item.quantity}
-									</Text>
 									<HStack maxW="320px" mt={16}>
 										<Button {...inc} onClick={() => incrementQuantity(item)}>
 											+
