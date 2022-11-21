@@ -49,30 +49,48 @@ export default function Cart() {
 	return (
 		<Box h="75vh">
 			{cartItems.length ? (
-				<Flex direction="column" gap={6}>
+				<Flex direction="column" gap={3}>
 					{cartItems.map((item) => {
 						const { image, name, price, slug } = item.attributes;
 						const thumbnail = image.data.attributes.formats.thumbnail.url;
 
 						return (
-							<Flex gap={4} key={slug}>
-								<Image src={thumbnail} borderRadius="lg" />
+							<Flex
+								gap={4}
+								boxShadow="xs"
+								rounded="lg"
+								p={6}
+								key={slug}
+								as={motion.div}
+								initial={{ opacity: 0, scale: 0.8 }}
+								animate={{ opacity: 1, scale: 1 }}
+								transition="0.5s linear"
+							>
+								<Image src={thumbnail} rounded="lg" boxSize="45%" />
 
-								<Box>
-									<Text fontSize="xl" fontWeight="bold">
+								<Flex direction="column">
+									<Text fontSize="lg" fontWeight="bold">
 										{name}
 									</Text>
-									<Text fontSize="xl">€{price}</Text>{" "}
-									<HStack maxW="320px" mt={16}>
-										<Button {...inc} onClick={() => incrementQuantity(item)}>
+									<Text fontSize="lg">€{price}</Text>{" "}
+									<HStack maxW="320px" mt="auto">
+										<Button
+											size="sm"
+											{...inc}
+											onClick={() => incrementQuantity(item)}
+										>
 											+
 										</Button>
-										<Input {...input} value={item.quantity} />
-										<Button {...dec} onClick={() => handleDecrement(item)}>
+										<Input size="sm" {...input} value={item.quantity} />
+										<Button
+											size="sm"
+											{...dec}
+											onClick={() => handleDecrement(item)}
+										>
 											-
 										</Button>
 									</HStack>
-								</Box>
+								</Flex>
 							</Flex>
 						);
 					})}

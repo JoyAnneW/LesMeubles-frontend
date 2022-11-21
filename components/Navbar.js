@@ -77,7 +77,7 @@ export default function Navbar() {
 				</Button>
 			</ButtonGroup>
 
-			<Slide in={isOpen} animateOpacity>
+			<Slide in={isOpen}>
 				<Drawer
 					isOpen={isOpen}
 					placement="right"
