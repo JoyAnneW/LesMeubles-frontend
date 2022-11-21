@@ -1,17 +1,28 @@
 import {
 	Box,
 	Button,
+	chakra,
 	Flex,
 	HStack,
 	Icon,
 	Image,
 	Input,
+	shouldForwardProp,
 	Text,
 	VStack,
 	useNumberInput,
 } from "@chakra-ui/react";
 import { useShopContext } from "../lib/context";
 import { FiShoppingCart } from "react-icons/fi";
+import { motion, isValidMotionProp } from "framer-motion";
+
+const ChakraBox = chakra(motion.div, {
+	/**
+	 * Allow motion props and non-Chakra props to be forwarded.
+	 */
+	shouldForwardProp: (prop) =>
+		isValidMotionProp(prop) || shouldForwardProp(prop),
+});
 
 export default function Cart() {
 	const {
@@ -67,12 +78,20 @@ export default function Cart() {
 					})}
 				</Flex>
 			) : (
-				<Flex alignItems="center" justify="center" h="full">
+				<ChakraBox
+					initial={{ opacity: 0, scale: 0.5 }}
+					animate={{ opacity: 1, scale: 1 }}
+					transition={{ type: "spring", stiffness: 40 }}
+					display="flex"
+					justifyContent="center"
+					alignItems="center"
+					h="full"
+				>
 					<VStack spacing={2}>
 						<Icon as={FiShoppingCart} fontSize="8xl" color="orange.500" />
 						<Text fontSize="2xl">Let's get to shopping!</Text>
 					</VStack>
-				</Flex>
+				</ChakraBox>
 			)}
 		</Box>
 	);

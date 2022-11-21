@@ -13,18 +13,17 @@ import {
 	Heading,
 	Icon,
 	useDisclosure,
-	Box,
 	Center,
 	Text,
+	Slide,
 } from "@chakra-ui/react";
-
 import { FiShoppingCart } from "react-icons/fi";
 import Link from "next/link";
 import Cart from "./Cart";
 import { useShopContext } from "../lib/context";
 
 export default function Navbar() {
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { isOpen, onToggle, onClose } = useDisclosure();
 	const btnRef = useRef();
 	const { cartItems, totalQuantitiesInCart, subTotal } = useShopContext();
 
@@ -54,7 +53,7 @@ export default function Navbar() {
 					variant="ghost"
 					colorScheme="orange"
 					ref={btnRef}
-					onClick={onOpen}
+					onClick={onToggle}
 				>
 					<Flex direction="column" position="relative">
 						{cartItems.length > 0 && (
@@ -77,32 +76,35 @@ export default function Navbar() {
 					</Flex>
 				</Button>
 			</ButtonGroup>
-			<Drawer
-				isOpen={isOpen}
-				placement="right"
-				onClose={onClose}
-				finalFocusRef={btnRef}
-				size="md"
-			>
-				<DrawerOverlay />
-				<DrawerContent>
-					<DrawerCloseButton />
-					<DrawerHeader textAlign="center" color="orange.900">
-						Your Shopping Cart
-					</DrawerHeader>
-					<DrawerBody>
-						<Cart />
-					</DrawerBody>
-					<DrawerFooter>
-						{cartItems.length > 0 && (
-							<Flex gap={4}>
-								<Text fontSize="2xl">Subtotal: </Text>
-								<Heading fontWeight="semibold">€{subTotal}</Heading>
-							</Flex>
-						)}
-					</DrawerFooter>
-				</DrawerContent>
-			</Drawer>
+
+			<Slide in={isOpen} animateOpacity>
+				<Drawer
+					isOpen={isOpen}
+					placement="right"
+					onClose={onClose}
+					finalFocusRef={btnRef}
+					size="md"
+				>
+					<DrawerOverlay />
+					<DrawerContent>
+						<DrawerCloseButton />
+						<DrawerHeader textAlign="center" color="orange.900">
+							Your Shopping Cart
+						</DrawerHeader>
+						<DrawerBody>
+							<Cart />
+						</DrawerBody>
+						<DrawerFooter>
+							{cartItems.length > 0 && (
+								<Flex gap={4}>
+									<Text fontSize="2xl">Subtotal: </Text>
+									<Heading fontWeight="semibold">€{subTotal}</Heading>
+								</Flex>
+							)}
+						</DrawerFooter>
+					</DrawerContent>
+				</Drawer>
+			</Slide>
 		</Flex>
 	);
 }
