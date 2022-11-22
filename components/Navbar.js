@@ -2,19 +2,11 @@ import { useRef } from "react";
 import {
 	Button,
 	ButtonGroup,
-	Drawer,
-	DrawerBody,
-	DrawerFooter,
-	DrawerHeader,
-	DrawerOverlay,
-	DrawerContent,
-	DrawerCloseButton,
 	Flex,
 	Heading,
 	Icon,
 	useDisclosure,
 	Center,
-	Text,
 	Slide,
 } from "@chakra-ui/react";
 import { FiShoppingCart } from "react-icons/fi";
@@ -82,37 +74,7 @@ export default function Navbar() {
 			</ButtonGroup>
 
 			<Slide in={isOpen}>
-				<Drawer
-					isOpen={isOpen}
-					placement="right"
-					onClose={onClose}
-					finalFocusRef={btnRef}
-					size="md"
-				>
-					<DrawerOverlay />
-					<DrawerContent>
-						<DrawerCloseButton />
-						<DrawerHeader textAlign="center" color="orange.900">
-							Your Shopping Cart
-						</DrawerHeader>
-						<DrawerBody>
-							<Cart />
-						</DrawerBody>
-						<DrawerFooter justifyContent="center" p={6}>
-							{cartItems.length > 0 && (
-								<Flex direction="column" gap={2} w="full" mb={4}>
-									<Flex gap={4}>
-										<Text fontSize="2xl">Subtotal: </Text>
-										<Heading fontWeight="semibold">€{subTotal}</Heading>
-									</Flex>
-									<Button variant="solid" colorScheme="orange" w="full">
-										Checkout
-									</Button>
-								</Flex>
-							)}
-						</DrawerFooter>
-					</DrawerContent>
-				</Drawer>
+				<Cart isOpen={isOpen} onClose={onClose} />
 			</Slide>
 		</Flex>
 	);
