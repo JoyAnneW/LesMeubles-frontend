@@ -88,9 +88,10 @@ export default function Cart({ isOpen, onClose }) {
 			body: JSON.stringify(cartItems),
 		});
 
+		// sends back a session object with the session id for redirecting to stripe's checkout
 		const data = await response.json();
-		console.log({ data });
-		await stripePromise.redirectToCheckout({ sessionId: data.id });
+		// console.log({ data });
+		await stripePromise.redirectToCheckout({ sessionId: data.session.id });
 	};
 	return (
 		<Drawer

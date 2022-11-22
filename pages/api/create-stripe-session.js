@@ -4,18 +4,23 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // this api will communicate with stripe and back to our app
 export default async function handler(req, res) {
 	if (req.method === "POST") {
-		console.log(req.body);
 		const lineItems = req.body.map((item) => {
 			const { name, image, price } = item.attributes;
+
 			return {
 				price_data: {
 					currency: "eur",
 					product_data: {
-						name: name,
+						name,
 						images: [image.data.attributes.formats.thumbnail.url],
 					},
 					unit_amount: price * 100,
 				},
+				adjustable_quantity: {
+					enabled: true,
+					minimum: 1,
+				},
+				quantity: item.quantity,
 			};
 		});
 
@@ -27,8 +32,11 @@ export default async function handler(req, res) {
 				payment_method_types: ["card"],
 				shipping_address_collection: {
 					allowed_countries: ["NL", "US", "GB", "CA", "GR"],
-					line_items: lineItems,
 				},
+				line_items: lineItems,
+				// pages for after successful or failed payment. origin is base url
+				success_url: `${req.headers.origin}/success`,
+				cancel_url: `${req.headers.origin}/cancel`,
 			});
 			res.status(200).json({ session });
 		} catch (error) {
