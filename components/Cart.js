@@ -73,23 +73,24 @@ export default function Cart({ isOpen, onClose }) {
 	const input = getInputProps();
 
 	const incrementQuantity = (prod) => {
-		console.log({ prod });
+		// console.log({ prod });
 		const updatedCartItems = increaseQuantityOfCartItem(prod);
 		console.log({ updatedCartItems });
 		setCartItems(updatedCartItems);
 	};
 
 	const handleCheckout = async () => {
-		const stripe = await getStripe();
+		const stripePromise = await getStripe();
 		// can make api requests from next.js in api folder.
-		const response = await fetch("/api/stripe", {
+		const response = await fetch(`/api/create-stripe-session`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(cartItems),
 		});
 
 		const data = await response.json();
-		await stripe.redirectToCheckout({ sessionId: data.id });
+		console.log({ data });
+		await stripePromise.redirectToCheckout({ sessionId: data.id });
 	};
 	return (
 		<Drawer
