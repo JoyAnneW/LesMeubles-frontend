@@ -31,8 +31,8 @@ const cards = {
 		opacity: 1,
 		scale: 1,
 		transition: {
-			delayChildren: 0.4,
-			staggerChildren: 0.2,
+			delayChildren: 0.3,
+			staggerChildren: 0.1,
 		},
 	},
 };
@@ -74,6 +74,7 @@ export default function Cart() {
 					variants={cards}
 					initial="hidden"
 					animate="show"
+					layout
 				>
 					{cartItems.map((item) => {
 						const { image, name, price, slug } = item.attributes;
@@ -88,6 +89,7 @@ export default function Cart() {
 								key={slug}
 								as={motion.div}
 								variants={card}
+								layout
 							>
 								<Image src={thumbnail} rounded="lg" />
 

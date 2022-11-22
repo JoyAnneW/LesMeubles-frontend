@@ -98,11 +98,16 @@ export default function Navbar() {
 						<DrawerBody>
 							<Cart />
 						</DrawerBody>
-						<DrawerFooter>
+						<DrawerFooter justifyContent="center" p={6}>
 							{cartItems.length > 0 && (
-								<Flex gap={4}>
-									<Text fontSize="2xl">Subtotal: </Text>
-									<Heading fontWeight="semibold">€{subTotal}</Heading>
+								<Flex direction="column" gap={2} w="full" mb={4}>
+									<Flex gap={4}>
+										<Text fontSize="2xl">Subtotal: </Text>
+										<Heading fontWeight="semibold">€{subTotal}</Heading>
+									</Flex>
+									<Button variant="solid" colorScheme="orange" w="full">
+										Checkout
+									</Button>
 								</Flex>
 							)}
 						</DrawerFooter>
