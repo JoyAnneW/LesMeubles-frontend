@@ -21,6 +21,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import Link from "next/link";
 import Cart from "./Cart";
 import { useShopContext } from "../lib/context";
+import { motion } from "framer-motion";
 
 export default function Navbar() {
 	const { isOpen, onToggle, onClose } = useDisclosure();
@@ -68,6 +69,9 @@ export default function Navbar() {
 								borderRadius="full"
 								color="orange.50"
 								fontSize="sm"
+								as={motion.div}
+								initial={{ scale: 0 }}
+								animate={{ scale: 1 }}
 							>
 								{totalQuantitiesInCart}
 							</Center>

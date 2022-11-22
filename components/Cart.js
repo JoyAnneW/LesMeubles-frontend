@@ -24,6 +24,24 @@ const ChakraBox = chakra(motion.div, {
 		isValidMotionProp(prop) || shouldForwardProp(prop),
 });
 
+//animation config for parent
+const cards = {
+	hidden: { opacity: 0, scale: 0.8 },
+	show: {
+		opacity: 1,
+		scale: 1,
+		transition: {
+			delayChildren: 0.4,
+			staggerChildren: 0.2,
+		},
+	},
+};
+
+const card = {
+	hidden: { opacity: 0, scale: 0.8 },
+	show: { opacity: 1, scale: 1 },
+};
+
 export default function Cart() {
 	const {
 		cartItems,
@@ -49,7 +67,14 @@ export default function Cart() {
 	return (
 		<Box h="75vh">
 			{cartItems.length ? (
-				<Flex direction="column" gap={3}>
+				<Flex
+					direction="column"
+					gap={3}
+					as={motion.div}
+					variants={cards}
+					initial="hidden"
+					animate="show"
+				>
 					{cartItems.map((item) => {
 						const { image, name, price, slug } = item.attributes;
 						const thumbnail = image.data.attributes.formats.thumbnail.url;
@@ -62,11 +87,9 @@ export default function Cart() {
 								p={6}
 								key={slug}
 								as={motion.div}
-								initial={{ opacity: 0, scale: 0.8 }}
-								animate={{ opacity: 1, scale: 1 }}
-								transition="0.5s linear"
+								variants={card}
 							>
-								<Image src={thumbnail} rounded="lg" boxSize="45%" />
+								<Image src={thumbnail} rounded="lg" />
 
 								<Flex direction="column">
 									<Text fontSize="lg" fontWeight="bold">
