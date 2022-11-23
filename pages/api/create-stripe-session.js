@@ -59,11 +59,11 @@ export default async function handler(req, res) {
 					},
 				],
 				line_items: lineItems,
-				// pages for after successful or failed payment. origin is base url
-				success_url: `${req.headers.origin}/success`,
+				// pages for after successful or failed payment. origin is base url. checkout session id is passed to success page in url
+				success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
 				cancel_url: `${req.headers.origin}/cancel`,
 			});
-			console.log({ session });
+			// console.log({ session });
 			res.status(200).json({ session });
 		} catch (error) {
 			res.status(error.statusCode || 500).json(error.message);
