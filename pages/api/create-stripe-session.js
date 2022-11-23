@@ -33,11 +33,37 @@ export default async function handler(req, res) {
 				shipping_address_collection: {
 					allowed_countries: ["NL", "US", "GB", "CA", "GR"],
 				},
+				allow_promotion_codes: true,
+				shipping_options: [
+					{
+						shipping_rate_data: {
+							type: "fixed_amount",
+							fixed_amount: { amount: 5 * 100, currency: "eur" },
+							display_name: "Express shipping",
+							delivery_estimate: {
+								minimum: { unit: "business_day", value: 3 },
+								maximum: { unit: "business_day", value: 5 },
+							},
+						},
+					},
+					{
+						shipping_rate_data: {
+							type: "fixed_amount",
+							fixed_amount: { amount: 0, currency: "eur" },
+							display_name: "Regular shipping",
+							delivery_estimate: {
+								minimum: { unit: "business_day", value: 7 },
+								maximum: { unit: "business_day", value: 10 },
+							},
+						},
+					},
+				],
 				line_items: lineItems,
 				// pages for after successful or failed payment. origin is base url
 				success_url: `${req.headers.origin}/success`,
 				cancel_url: `${req.headers.origin}/cancel`,
 			});
+			console.log({ session });
 			res.status(200).json({ session });
 		} catch (error) {
 			res.status(error.statusCode || 500).json(error.message);

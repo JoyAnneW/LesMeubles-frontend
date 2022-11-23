@@ -8,7 +8,7 @@ Working on adding authentication with Auth0 and Stripe integration.
 
 ## Getting Started
 
-This project uses node v14.17.0.
+This project uses node v14.19.1.
 
 To install dependencies
 
