@@ -140,7 +140,7 @@ export default function Cart({ isOpen, onClose }) {
 												<Text fontSize="lg" fontWeight="bold">
 													{name}
 												</Text>
-												<Text fontSize="lg">€{price}</Text>{" "}
+												<Text fontSize="lg">€{price}</Text>
 												<HStack maxW="320px" mt="auto">
 													<Button
 														size="sm"
