@@ -49,35 +49,36 @@ export default function success({ session }) {
 					</Box>
 				</VStack>
 				<Divider orientation="vertical" />
-				<VStack>
-					<Heading>Order Details</Heading>
-					<Heading as="h4" size="md">
-						Shipping address
-					</Heading>
-					<Text>{address.line1}</Text>
-					{address.line2 ? <Text>{address.line2}</Text> : ""}
-					<Text>
-						{address.city}, {address.postal_code}
-					</Text>
-					<Text>{address.country}</Text>
+				<Flex direction="column" alignItems="flex-start" gap={3}>
+					<Box>
+						<Heading mb={3}>Order Details</Heading>
+						<Heading as="h4" size="md">
+							Shipping address
+						</Heading>
+						<Text>{address.line1}</Text>
+						{address.line2 ? <Text>{address.line2}</Text> : ""}
+						<Text>
+							{address.city}, {address.postal_code}
+						</Text>
+						<Text>{address.country}</Text>
+					</Box>
 					<Flex direction="column">
 						<Heading as="h4" size="md">
 							Your Order
 						</Heading>
-						<Flex direction="column" gap={3}>
-							{productsPurchased.map((item) => {
-								return (
-									<Flex direction="column" py={3} key={item.id}>
-										<Text>{item.description}</Text>
-										<Text>Quantity: {item.quantity}</Text>
-										<Text>Total: €{item.amount_total / 100}</Text>{" "}
-										<Divider mt={3} />
-									</Flex>
-								);
-							})}
-						</Flex>
+
+						{productsPurchased.map((item) => {
+							return (
+								<Flex direction="column" pb={3} key={item.id}>
+									<Text>{item.description}</Text>
+									<Text>Quantity: {item.quantity}</Text>
+									<Text>Total: €{item.amount_total / 100}</Text>{" "}
+									<Divider mt={3} />
+								</Flex>
+							);
+						})}
 					</Flex>
-				</VStack>
+				</Flex>
 			</Flex>
 		</Center>
 	);
