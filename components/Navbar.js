@@ -14,6 +14,7 @@ import Link from "next/link";
 import Cart from "./Cart";
 import { useShopContext } from "../lib/context";
 import { motion } from "framer-motion";
+import User from "./User";
 
 export default function Navbar() {
 	const { isOpen, onToggle, onClose } = useDisclosure();
@@ -38,15 +39,24 @@ export default function Navbar() {
 				</Heading>
 			</Link>
 
-			<ButtonGroup spacing="2">
-				<Button variant="solid" colorScheme="orange">
-					Login
+			<ButtonGroup>
+				<Button
+					variant="ghost"
+					colorScheme="orange"
+					margin={0}
+					p={0}
+					alignItems="flex-end"
+					justifyContent="flex-end"
+				>
+					<User />
 				</Button>
 				<Button
 					variant="ghost"
 					colorScheme="orange"
 					ref={btnRef}
 					onClick={onToggle}
+					margin={0}
+					p={0}
 				>
 					<Flex direction="column" position="relative">
 						{cartItems.length > 0 && (

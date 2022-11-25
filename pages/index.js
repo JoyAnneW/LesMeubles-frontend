@@ -37,7 +37,6 @@ export default function Home() {
 			</Head>
 
 			<Box my="28" mx={6}>
-				<a href="/api/auth/login">Login</a>
 				<SimpleGrid minChildWidth="20rem" spacing="2rem">
 					{products.map((product) => (
 						<Product key={product.attributes.slug} product={product} />
