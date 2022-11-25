@@ -15,12 +15,14 @@ import Cart from "./Cart";
 import { useShopContext } from "../lib/context";
 import { motion } from "framer-motion";
 import User from "./User";
+import { useUser } from "@auth0/nextjs-auth0";
 
 export default function Navbar() {
 	const { isOpen, onToggle, onClose } = useDisclosure();
 	const btnRef = useRef();
 	const { cartItems, totalQuantitiesInCart, subTotal } = useShopContext();
-
+	const { user, error, loading } = useUser();
+	console.log({ user });
 	return (
 		<Flex
 			position="fixed"
@@ -40,16 +42,22 @@ export default function Navbar() {
 			</Link>
 
 			<ButtonGroup>
-				<Button
-					variant="ghost"
-					colorScheme="orange"
-					margin={0}
-					p={0}
-					alignItems="flex-end"
-					justifyContent="flex-end"
-				>
-					<User />
-				</Button>
+				{user ? (
+					<Button
+						variant="ghost"
+						colorScheme="orange"
+						margin={0}
+						p={0}
+						alignItems="flex-end"
+						justifyContent="flex-end"
+					>
+						<User />
+					</Button>
+				) : (
+					<Button variant="solid" colorScheme="orange">
+						<a href="/api/auth/login">Login</a>
+					</Button>
+				)}
 				<Button
 					variant="ghost"
 					colorScheme="orange"
