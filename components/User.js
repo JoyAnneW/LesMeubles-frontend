@@ -13,7 +13,12 @@ export default function User() {
 			justifyContent="center"
 			alignItems="center"
 		>
-			<Image src={user.picture} borderRadius="full" boxSize="35px" />
+			{user.picture ? (
+				<Image src={user.picture} borderRadius="full" boxSize="35px" />
+			) : (
+				<Icon as={FaUserCircle} fontSize="3xl" />
+			)}
+
 			<Text>{user.name}</Text>
 		</Flex>
 	);

@@ -34,7 +34,8 @@ export default function Navbar() {
 			backgroundColor="rgba(255, 250, 240, 0.8)"
 			backdropFilter="saturate(180%) blur(5px)"
 			justify="space-between"
-			p={6}
+			py={8}
+			px={6}
 		>
 			<Link href={"/"}>
 				<Heading as="em" color="yellow.900">
