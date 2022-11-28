@@ -4,7 +4,7 @@ import { useUser } from "@auth0/nextjs-auth0";
 
 export default function User() {
 	const { user, error, loading } = useUser();
-	console.log(user.picture);
+	console.log({ user });
 	// next Link tag is for client side transitions, the login interfaces with an api so a regular a tag is appropriate
 	return (
 		<Flex

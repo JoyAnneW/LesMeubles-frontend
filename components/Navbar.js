@@ -16,12 +16,12 @@ import { useShopContext } from "../lib/context";
 import { motion } from "framer-motion";
 import User from "./User";
 import { useUser } from "@auth0/nextjs-auth0";
-import Image from "next/image";
 
 export default function Navbar() {
 	const { isOpen, onToggle, onClose } = useDisclosure();
 	const btnRef = useRef();
 	const { cartItems, totalQuantitiesInCart, subTotal } = useShopContext();
+
 	const { user, error, loading } = useUser();
 	console.log({ user });
 	return (

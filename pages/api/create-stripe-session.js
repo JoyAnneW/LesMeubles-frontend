@@ -5,8 +5,8 @@ import { getSession } from "@auth0/nextjs-auth0";
 // this api will communicate with stripe and back to our app
 export default async function handler(req, res) {
 	// rule set up in auth0 that automatically creates a stripe customer when a user registers on the app
-	const session = getSession(req, res);
-	const user = session?.user;
+	const authSession = getSession(req, res);
+	const user = authSession?.user;
 	console.log({ user });
 	if (req.method === "POST") {
 		const lineItems = req.body.map((item) => {

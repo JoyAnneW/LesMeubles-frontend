@@ -5,9 +5,6 @@ import {
 	Divider,
 	Flex,
 	Heading,
-	HStack,
-	Icon,
-	Image,
 	Link,
 	Text,
 	VStack,
@@ -20,8 +17,9 @@ export async function getServerSideProps(params) {
 	const session = await stripe.checkout.sessions.retrieve(session_id, {
 		expand: ["line_items"],
 	});
-	console.log({ session });
+	// console.log({ session });
 
+	// prerender component with data returned from here
 	return {
 		props: { session },
 	};
@@ -29,7 +27,7 @@ export async function getServerSideProps(params) {
 export default function success({ session }) {
 	const { email, address } = session.customer_details;
 	const productsPurchased = session.line_items?.data;
-	console.log({ productsPurchased });
+	// console.log({ productsPurchased });
 	return (
 		<Center h="100vh">
 			<Flex gap={6} h="50%">
