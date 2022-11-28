@@ -1,8 +1,13 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+import { getSession } from "@auth0/nextjs-auth0";
 // this api will communicate with stripe and back to our app
 export default async function handler(req, res) {
+	// rule set up in auth0 that automatically creates a stripe customer when a user registers on the app
+	const session = getSession(req, res);
+	const user = session?.user;
+	console.log({ user });
 	if (req.method === "POST") {
 		const lineItems = req.body.map((item) => {
 			const { name, image, price } = item.attributes;
@@ -29,6 +34,8 @@ export default async function handler(req, res) {
 			const session = await stripe.checkout.sessions.create({
 				submit_type: "pay",
 				mode: "payment",
+				// attach stripe cus id to this purchase
+				customer: user.stripe_customer_id,
 				payment_method_types: ["card"],
 				shipping_address_collection: {
 					allowed_countries: ["NL", "US", "GB", "CA", "GR"],
