@@ -23,7 +23,7 @@ export default function Navbar() {
 	const { cartItems, totalQuantitiesInCart, subTotal } = useShopContext();
 
 	const { user, error, loading } = useUser();
-	console.log({ user });
+	// console.log({ user });
 	return (
 		<Flex
 			position="fixed"
