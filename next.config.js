@@ -9,6 +9,10 @@ const nextConfig = {
 			},
 		],
 	},
+	// to redirect to homepage instead of cancel page
+	// async redirects() {
+	// 	return [{ source: "/cancel", destination: "/", permanent: true }];
+	// },
 };
 
 module.exports = nextConfig;
