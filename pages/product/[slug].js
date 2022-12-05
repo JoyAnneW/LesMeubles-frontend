@@ -16,6 +16,7 @@ import {
 	ButtonSpinner,
 } from "@chakra-ui/react";
 import { useShopContext } from "../../lib/context";
+import toast from "react-hot-toast";
 
 export default function ProductDetails() {
 	const { qty, setQty, addToCart } = useShopContext();
@@ -62,6 +63,7 @@ export default function ProductDetails() {
 	const product = data.products.data[0];
 	const { name, description, image, price } = product.attributes;
 	const mdImg = image.data.attributes.formats.medium.url;
+	const notify = () => toast.success(`${name} has been added to your cart.`);
 
 	return (
 		<Center mt="20">
@@ -82,7 +84,10 @@ export default function ProductDetails() {
 					<Button
 						variant="solid"
 						mt={2}
-						onClick={() => addToCart(product, qty)}
+						onClick={() => {
+							addToCart(product, qty);
+							notify();
+						}}
 					>
 						Add To Cart
 					</Button>
