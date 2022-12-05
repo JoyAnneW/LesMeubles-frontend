@@ -21,7 +21,7 @@ export const getServerSideProps = withPageAuthRequired({
 
 // by default withPageAuthRequired passes the user as well
 export default function Profile({ user, orders }) {
-	console.log({ user, orders });
+	// console.log({ user, orders });
 	return user ? (
 		<Center my="28" mx="6">
 			<Flex gap={10} p={10}>

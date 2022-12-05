@@ -31,11 +31,10 @@ export default async function handler(req, res) {
 
 		try {
 			// create checkout session
-			const session = await stripe.checkout.sessions.create({
+			const sessionObj = {
 				submit_type: "pay",
 				mode: "payment",
-				// attach stripe cus id to this purchase
-				customer: user.stripe_customer_id,
+
 				payment_method_types: ["card"],
 				shipping_address_collection: {
 					allowed_countries: ["NL", "US", "GB", "CA", "GR"],
@@ -69,7 +68,13 @@ export default async function handler(req, res) {
 				// pages for after successful or failed payment. origin is base url. checkout session id is passed to success page in url
 				success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
 				cancel_url: `${req.headers.origin}/cancel`,
-			});
+			};
+			// attach stripe cus id to this purchase if user is logged in. if not logged in session will be created without stripe customer id
+			if (user) {
+				sessionObj.customer = user.stripe_customer_id;
+			}
+
+			const session = await stripe.checkout.sessions.create(sessionObj);
 			// console.log({ session });
 			res.status(200).json({ session });
 		} catch (error) {
