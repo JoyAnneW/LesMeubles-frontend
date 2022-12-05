@@ -2,7 +2,7 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // lets us secure the route so that only authorized users can access
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
-import { Button, Center, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Flex, Heading, Text } from "@chakra-ui/react";
 
 export const getServerSideProps = withPageAuthRequired({
 	async getServerSideProps(ctx) {
@@ -24,21 +24,24 @@ export default function Profile({ user, orders }) {
 	console.log({ user, orders });
 	return user ? (
 		<Center my="28" mx="6">
-			<Flex>
-				<h2>{user.name}</h2>
-				<p>{user.email}</p>
-				<div>
+			<Flex gap={10} p={10}>
+				<Box p={6}>
+					<Heading>{user.name}</Heading>
+					<Text fontWeight="bold">{user.email}</Text>
+					<Button variant="ghost" colorScheme="orange" w="full" mt={6}>
+						<a href="/api/auth/logout">Logout</a>
+					</Button>
+				</Box>
+				<Flex direction="column" p={6} gap={6}>
+					<Heading>Orders</Heading>
 					{orders.map((order) => (
-						<div>
-							<h1>Order Number: {order.id}</h1>
-							<h2>{order.amount / 100}</h2>
-						</div>
+						<Flex gap={24}>
+							<Text fontWeight="bold">Order Number: {order.id}</Text>
+							<Text fontWeight="bold">Total: €{order.amount / 100}</Text>
+						</Flex>
 					))}
-				</div>
+				</Flex>
 			</Flex>
-			<Button variant="solid" colorScheme="orange" w="full">
-				<a href="/api/auth/logout">Logout</a>
-			</Button>
 		</Center>
 	) : (
 		<Center>
