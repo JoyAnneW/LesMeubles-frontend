@@ -13,15 +13,20 @@ export const getServerSideProps = withPageAuthRequired({
 		const paymentIntents = await stripe.paymentIntents.list({
 			customer: stripeId,
 		});
+		const sessions = await stripe.checkout.sessions.list({
+			customer: stripeId,
+		});
+
+		// console.log({ sessions });
 		return {
-			props: { orders: paymentIntents.data },
+			props: { orders: paymentIntents.data, checkoutSessions: sessions.data },
 		};
 	},
 });
 
 // by default withPageAuthRequired passes the user as well
-export default function Profile({ user, orders }) {
-	// console.log({ user, orders });
+export default function Profile({ user, orders, checkoutSessions }) {
+	console.log({ user, orders, checkoutSessions });
 	return user ? (
 		<Center my="28" mx="6">
 			<Flex gap={10} p={10}>

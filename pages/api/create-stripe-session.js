@@ -34,8 +34,8 @@ export default async function handler(req, res) {
 			const sessionObj = {
 				submit_type: "pay",
 				mode: "payment",
-
 				payment_method_types: ["card"],
+
 				shipping_address_collection: {
 					allowed_countries: ["NL", "US", "GB", "CA", "GR"],
 				},
